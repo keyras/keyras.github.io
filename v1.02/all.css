@@ -21590,12 +21590,37 @@ aside.page-sidebar ($nav-width, $nav-background)
 
 /*# sourceMappingURL=toastr.css.map */
 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Open Sans Light'), local('OpenSans-Light'), url('../fonts/opensans/opensans-light-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url('../fonts/opensans/opensans-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url('../fonts/opensans/opensans-bold-webfont.woff') format('woff');
+}
+
 body,
 html {
   height: 100%;
   margin: 10px auto;
   transition: background-color 0.5s;
   font-family: "Montserrat" !important;
+  margin: 0;
+  position: relative;
 }
 
 .topDiv {
@@ -21612,7 +21637,7 @@ html {
   padding-top: 20px;
 }
 
-.homepage #listDiv {
+#listCol #listDiv {
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
@@ -21648,10 +21673,10 @@ div.postblurb {
   color: #b22222;
 }
 
-body {
+/* body {
   margin: 0;
   position: relative;
-}
+} */
 
 /* EditableObject */
 
@@ -27408,7 +27433,7 @@ margin-top: 8px;
 }
 
 
-.login-dropdown {
+.topbar-dropdown {
   border-right: none;
   border-left: none;
   display: inline-block;
@@ -27477,6 +27502,28 @@ left: -202px !important;
   color: #696969 !important;
   background-color: #f3f1f5 !important;
   border-color: #d6d3da !important;
+}
+
+.drop-down-contact-us {
+  background-color: #f4f1f9;
+  position: absolute;
+  will-change: top, left;
+  top: 36px;
+  left: -178px !important;
+}
+
+.md-contact-us {
+  background-color: #ffffff !important;
+  color: #886ab5 !important;
+}
+
+.md-contact {
+  line-height: normal !important;
+  margin-bottom: 0.5rem !important;
+  margin-top: 0.5rem !important;
+  font-size: 0.9375rem !important;
+  font-weight: 300 !important;
+  display: block !important;
 }
 .main-menu-navbar {
     background-color: white !important;
@@ -36078,7 +36125,7 @@ RESULT:
 
 .property-container {
     box-shadow: rgb(164, 164, 164) 0px 0px 3px;
-    padding: 20px;
+    padding: 13px;
     color: black;
     background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,1)), 
         url("../../../img/real-estate.jpg") no-repeat;
@@ -36111,7 +36158,7 @@ RESULT:
     height: 150px;
     overflow: hidden;
     position: absolute;
-    z-index: 19
+    z-index: 18
   }
   .property-container .ribbon::before,
   .property-container .ribbon::after {
@@ -36243,6 +36290,7 @@ RESULT:
     padding: 20px;
     margin-bottom: 20px;
     cursor: auto;
+    width: 100%;
   }
 
   .box-container span {
@@ -36256,17 +36304,21 @@ RESULT:
   @media only screen   
   and (min-width: 320px)  
   and (max-width: 1400px)  {
-    .homepage #mapDiv {
+    #mapCol #mapDiv {
     height: 37vh !important;
     width: 100% !important;
   }
-  .homepage #listCol {
+  #listCol {
     margin-top: 37vh;
   }
-  .homepage #mapCol {
+  #view-container #mapDiv {
+    width: 90% !important;
+  }
+  #mapCol {
     position: fixed;
-    z-index: 19;
+    z-index: 18;
     margin-top: -8px;
+    width: 100%;
   }
   #itemDetails #itemMap {
     height: 250px !important;
@@ -36283,6 +36335,23 @@ RESULT:
     overflow-x: hidden; 
     width:104%
   }
+  #mapCol #mapDiv.test {
+    height: 0vh !important;
+  }
+  #listCol.test {
+    margin-top: 0px !important;
+  }
+  #toggleMapContainer {
+    top: -2.6% !important;
+    right: 45% !important;
+    z-index: 18 !important;
+  }
+}
+#nearbyPlacesContainer [data-toggle="collapse"] .collapseIcon:before {  
+  content: "\f139";
+}
+#nearbyPlacesContainer [data-toggle="collapse"].collapsed .collapseIcon:before {
+  content: "\f13a";
 }
 
 /** Search */
