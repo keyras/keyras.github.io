@@ -1,5 +1,5 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans");
-@import url("//fonts.googleapis.com/css?family=Montserrat:400,700");
+@import url("//fonts.googleapis.com/css?family=PT+Sans");
 /*! jQuery UI - v1.12.1 - 2016-09-14
 * http://jqueryui.com
 * Includes: core.css, accordion.css, autocomplete.css, menu.css, button.css, controlgroup.css, checkboxradio.css, datepicker.css, dialog.css, draggable.css, resizable.css, progressbar.css, selectable.css, selectmenu.css, slider.css, sortable.css, spinner.css, tabs.css, tooltip.css, theme.css
@@ -23267,7 +23267,7 @@ html {
   height: 100%;
   margin: 10px auto;
   transition: background-color 0.5s;
-  font-family: "Montserrat" !important;
+  font-family: 'PT Sans' !important;
   margin: 0;
   position: relative;
 }
@@ -29698,8 +29698,8 @@ left: -202px !important;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text !important;
     display:block;
-    font-family: "Arial Black", 'Gadget', sans-serif;
-    /* width:500px; */
+    font-weight: 700;
+    font-size: larger;
     word-wrap:break-word;
  }
 .modal-title {
