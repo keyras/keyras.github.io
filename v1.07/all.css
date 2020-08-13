@@ -1,3 +1,5 @@
+@import url("//fonts.googleapis.com/css?family=Open+Sans");
+@import url("//fonts.googleapis.com/css?family=Montserrat:400,700");
 /*! jQuery UI - v1.12.1 - 2016-09-14
 * http://jqueryui.com
 * Includes: core.css, accordion.css, autocomplete.css, menu.css, button.css, controlgroup.css, checkboxradio.css, datepicker.css, dialog.css, draggable.css, resizable.css, progressbar.css, selectable.css, selectmenu.css, slider.css, sortable.css, spinner.css, tabs.css, tooltip.css, theme.css
@@ -23260,29 +23262,6 @@ aside.page-sidebar ($nav-width, $nav-background)
 
 /*# sourceMappingURL=toastr.css.map */
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
-@font-face {
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 300;
-    src: local('Open Sans Light'), local('OpenSans-Light'), url('../fonts/opensans/opensans-light-webfont.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Open Sans'), local('OpenSans'), url('../fonts/opensans/opensans-webfont.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 700;
-    src: local('Open Sans Bold'), local('OpenSans-Bold'), url('../fonts/opensans/opensans-bold-webfont.woff') format('woff');
-}
-
 body,
 html {
   height: 100%;
@@ -23967,7 +23946,7 @@ div.offer-settings div.content div div.config-ui {
     text-overflow: ellipsis;
     overflow: hidden;
     display: block;
-    /*white-space: nowrap; */
+    white-space: nowrap;
     width: 100%;
     padding: 2px 5px;
 }
@@ -25018,12 +24997,12 @@ textarea.has-float-label:not([data-val='']) + label {
   position: relative;
   display: inline-grid;
   max-width: 150px;
+  right: 50%;
 }
 
 
 .statusLine .status.last {
   border-top: none;
-  width: 0px;
   margin-top: 23px;
 }
 
@@ -25032,7 +25011,7 @@ textarea.has-float-label:not([data-val='']) + label {
   background-color: white;
   border-radius: 25px;
   position: absolute;
-  left: 38%;
+  left: 0;
   z-index: 1;
   color: #886ab5;
   text-align: center;
