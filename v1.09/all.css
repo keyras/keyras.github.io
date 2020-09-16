@@ -25655,6 +25655,12 @@ font-size: 0.6875rem !important;
 
 
 /* End of  connected carousel    */
+
+.text-gradient {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(25%, #6e4e9e), color-stop(50%, #62468d), color-stop(75%, #fd3995), to(#d00866)) !important;
+  background: linear-gradient(180deg, #6e4e9e 25%, #62468d 50%, #fd3995 75%, #d00866 100%) !important;
+  -webkit-background-clip: text !important;
+}
 ﻿/*
     TODO_N:
       Remove font-size, and costumize the font size on site template file
