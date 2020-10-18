@@ -4,7 +4,7 @@ Last updated October 18, 2020
 
 
 
-Thank you for choosing to be part of our community at Rawa Al-Jabaly, doing business as Keyras ("Keyras", "we", "us", "our"). We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about this privacy notice, or our practices with regards to your personal information, please contact us at rawa.jabaly@gmail.com.
+Thank you for choosing to be part of our community at keyras.com, doing business as Keyras. We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about this privacy notice, or our practices with regards to your personal information, please contact us at info@keyras.com.
 
 When you use our mobile application, as the case may be (the "App") and more generally, use any of our services (the "Services", which include the App), we appreciate that you are trusting us with your personal information. We take your privacy very seriously. In this privacy notice, we seek to explain to you in the clearest way possible what information we collect, how we use it and what rights you have in relation to it. We hope you take some time to read through it carefully, as it is important. If there are any terms in this privacy notice that you do not agree with, please discontinue use of our Services immediately.
 
@@ -70,7 +70,7 @@ We use personal information collected via our App for a variety of business purp
 
 We use the information we collect or receive:
 To facilitate account creation and logon process. If you choose to link your account with us to a third-party account (such as your Google or Facebook account), we use the information you allowed us to collect from those third parties to facilitate account creation and logon process for the performance of the contract.
-To post testimonials. We post testimonials on our App that may contain personal information. Prior to posting a testimonial, we will obtain your consent to use your name and the content of the testimonial. If you wish to update, or delete your testimonial, please contact us at __________ and be sure to include your name, testimonial location, and contact information.
+To post testimonials. We post testimonials on our App that may contain personal information. Prior to posting a testimonial, we will obtain your consent to use your name and the content of the testimonial. If you wish to update, or delete your testimonial, please contact us at info@keyras.com and be sure to include your name, testimonial location, and contact information.
 Request feedback. We may use your information to request feedback and to contact you about your use of our App.
 To enable user-to-user communications. We may use your information in order to enable user-to-user communications with each user's consent.
 To manage user accounts. We may use your information for the purposes of managing our account and keeping it in working order.
@@ -143,7 +143,7 @@ When we have no ongoing legitimate business need to process your personal inform
 
 In Short:  We do not knowingly collect data from or market to children under 18 years of age.
 
-We do not knowingly solicit data from or market to children under 18 years of age. By using the App, you represent that you are at least 18 or that you are the parent or guardian of such a minor and consent to such minor dependent’s use of the App. If we learn that personal information from users less than 18 years of age has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we may have collected from children under age 18, please contact us at __________.
+We do not knowingly solicit data from or market to children under 18 years of age. By using the App, you represent that you are at least 18 or that you are the parent or guardian of such a minor and consent to such minor dependent’s use of the App. If we learn that personal information from users less than 18 years of age has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we may have collected from children under age 18, please contact us at info@keyras.com.
 
 10. WHAT ARE YOUR PRIVACY RIGHTS?
 
@@ -188,13 +188,12 @@ We may update this privacy notice from time to time. The updated version will be
 
 14. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?     
 
-If you have questions or comments about this notice, you may email us at __________ or by post to:
+If you have questions or comments about this notice, you may email us at info@keyras.com or by post to:
 
-Rawa Al-Jabaly
-Sixth Circle, Zahran Street
-Amman, Amman 11183
-Jordan
+Mahmoud Abu Al Haija
+UAE, Abu Dhabi
+UAE
 
 15. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?     
 
-Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please visit: __________. We will respond to your request within 30 days.
+Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please visit: keyras.com. We will respond to your request within 30 days.
