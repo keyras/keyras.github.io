@@ -103,6 +103,83 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'keyras-amenties';
+  src:  url('../fonts/keyras-amenties.eot?6kmyvr');
+  src:  url('../fonts/keyras-amenties.eot?6kmyvr#iefix') format('embedded-opentype'),
+    url('../fonts/keyras-amenties.ttf?6kmyvr') format('truetype'),
+    url('../fonts/keyras-amenties.woff?6kmyvr') format('woff'),
+    url('../fonts/keyras-amenties.svg?6kmyvr#keyras-amenties') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+
+.kr-washing-machine:before {
+  content: "\e903";
+  font-family: 'keyras-amenties';
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
+.kr-dishwasher:before {
+  content: "\e904";
+  font-family: 'keyras-amenties';
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
+.kr-microwave:before {
+  content: "\e905";
+  font-family: 'keyras-amenties';
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
+.kr-freezer:before {
+  content: "\e906";
+  font-family: 'keyras-amenties';
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
+.kr-fridge:before {
+  content: "\e907";
+  font-family: 'keyras-amenties';
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
+.kr-cooker:before {
+  content: "\e908";
+  font-family: 'keyras-amenties';
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
+.kr-children-playing:before {
+  content: "\e900";
+  font-family: 'keyras-amenties';
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
+.kr-bbq-area:before {
+  content: "\e901";
+  font-family: 'keyras-amenties';
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
+.kr-private-pool:before {
+  content: "\e902";
+  font-family: 'keyras-amenties';
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
+
 /*! jQuery UI - v1.12.1 - 2016-09-14
 * http://jqueryui.com
 * Includes: core.css, accordion.css, autocomplete.css, menu.css, button.css, controlgroup.css, checkboxradio.css, datepicker.css, dialog.css, draggable.css, resizable.css, progressbar.css, selectable.css, selectmenu.css, slider.css, sortable.css, spinner.css, tabs.css, tooltip.css, theme.css
@@ -14907,9 +14984,9 @@ html body {
 /* app header */
 .header-icon {
   color: #666666;
-  height: 4.125rem;
+  height: 3.125rem;
   display: block;
-  line-height: 4.125rem;
+  line-height: 3.125rem;
   text-decoration: none;
   position: relative; }
   .header-icon:not(.btn) {
@@ -14954,7 +15031,7 @@ html body {
           content: " ";
           width: 2.5rem;
           height: 2.5rem;
-          top: 0.8125rem;
+          top: 0.3125rem;
           z-index: -1;
           left: 0.3125rem;
           opacity: 1; }
@@ -18144,7 +18221,16 @@ html body {
     .mod-panel-clean .panel-hdr h2 {
       color: #333;
       font-weight: 500; }
-
+@media only screen and (max-width: 390px) {
+  .header-icon:not(.btn) {
+    min-width: 2.225rem;
+    text-align: unset;
+    overflow: hidden;
+  }
+  .notification-badge {
+    left: 10px !important;
+  }
+}
 @media only screen and (max-width: 420px) {
   /* making mobile spacing a little narrow */
   .panel .panel-hdr {
@@ -23875,6 +23961,9 @@ div.offer-settings div.content div div.config-ui {
   display: inline-block;
   float: left;
 }
+.modal.modal-backdrop-transparent {
+  z-index: 2050;
+}
 .modal {
   z-index: 20;
 }
@@ -25600,7 +25689,6 @@ font-size: 0.6875rem !important;
 /** Stage container **/
 
 .connected-carousels .stage {
-  width: 900px;
   margin: 20px auto;
   position: relative;
 }
@@ -25864,6 +25952,10 @@ font-size: 0.6875rem !important;
 td .form-group .input-group{
   margin: auto !important;
 }
+
+.modal-body {
+  padding: 0.5rem 1.25rem 0.5rem 1.25rem !important;
+}
 ﻿/*
     TODO_N:
       Remove font-size, and costumize the font size on site template file
@@ -25873,522 +25965,521 @@ td .form-group .input-group{
 
 
 .modal {
-    /*z-index: 2050;*/
-    padding: 0 !important; /* Sometime boostrap adds a padding-left/right: 17px; when resizing the window */
+  /*z-index: 2050;*/
+  padding: 0 !important; /* Sometime boostrap adds a padding-left/right: 17px; when resizing the window */
 }
 /********************************/
 /********* Center Modal *********/
 
 .modal.modal-center:not(.full-screen) {
-    text-align: center;
-    padding: 0;
+  text-align: center;
+  padding: 0;
 }
 
 .modal.modal-center:not(.full-screen):before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    margin-right: -4px; /* Adjusts for spacing */
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px; /* Adjusts for spacing */
 }
 /*RTL*/
 .modal-rtl .modal.modal-center:not(.full-screen):before {
-    margin-right: 0;
-    margin-left: -4px;
+  margin-right: 0;
+  margin-left: -4px;
 }
 
-    .modal.modal-center:not(.full-screen) .modal-dialog {
-        display: inline-block;
-        text-align: left;
-        vertical-align: middle;
-    }
-    /*RTL*/
-    .modal-rtl .modal.modal-center:not(.full-screen) .modal-dialog {
-        text-align: right;
-    }
+  .modal.modal-center:not(.full-screen) .modal-dialog {
+      display: inline-block;
+      text-align: left;
+      vertical-align: middle;
+  }
+  /*RTL*/
+  .modal-rtl .modal.modal-center:not(.full-screen) .modal-dialog {
+      text-align: right;
+  }
 /********************************/
 /*** Center Modal(using flex) ***/
 
 .modal.modal-center-flex:not(.full-screen) {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal.modal-center-flex:not(.full-screen) .modal-dialog {
-    flex: 1;
+  flex: 1;
 }
 /********************************/
 /*********** Blocked ************/
 
 .modal.blocked {
-    background-color: rgba(0,0,0,.5);
+  background-color: rgba(0,0,0,.5);
 }
 /********************************/
 /*********** Movable ************/
 
 .modal.movable .modal-header {
-    cursor: move;
+  cursor: move;
 }
 /********************************/
 /********* Full Screen **********/
 
 .modal.full-screen {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    /*padding-bottom: 2px;
-    padding-right: 0px;
-    padding-left: 4px;*/
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  /*padding-bottom: 2px;
+  padding-right: 0px;
+  padding-left: 4px;*/
 }
 /*RTL*/
 .modal-rtl .modal.full-screen {
-    right: 0;
-    /*padding-left: 0px;
-    padding-right: 4px;*/
+  right: 0;
+  /*padding-left: 0px;
+  padding-right: 4px;*/
 }
 
-    .modal.full-screen .modal-dialog {
-        width: 100% !important;
-        max-width: 100% !important;
-        height: 100% !important;
-        max-height: 100% !important;
-        margin-top: 0px;
-        margin-bottom: 0px;
-        margin: 0;
-    }
+  .modal.full-screen .modal-dialog {
+      width: 100% !important;
+      max-width: 100% !important;
+      height: 100% !important;
+      max-height: 100% !important;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin: 0;
+  }
 
-        .modal.full-screen .modal-content {
-            width: 100% !important;
-            height: 100% !important;
-        }
+      .modal.full-screen .modal-content {
+          width: 100% !important;
+          height: 100% !important;
+      }
 /********************************/
 /********** Scrollable **********/
 
-    .modal.scrollable .modal-body {
-        overflow-y: auto;
-    }
+  .modal.scrollable .modal-body {
+      overflow-y: auto;
+  }
 /********************************/
 /************ Shared ************/
-    .modal-body {
-      padding: 0.5rem 1.25rem 0.5rem 1.25rem;
-    }
-    .modal-title, 
-    .modal-body {
-        text-align: left;
-    }
-    /*RTL*/
-    .modal-rtl .modal-title, 
-    .modal-rtl .modal-body {
-        text-align: right;
-    }
 
-    .modal-header button, 
-    .modal-footer button, 
-    .modal-header button:active, 
-    .modal-footer button:active,
-    .modal-header button:focus,
-    .modal-footer button:focus {
-        outline: none !important;
-    }
+  .modal-title, 
+  .modal-body {
+      text-align: left;
+  }
+  /*RTL*/
+  .modal-rtl .modal-title, 
+  .modal-rtl .modal-body {
+      text-align: right;
+  }
+
+  .modal-header button, 
+  .modal-footer button, 
+  .modal-header button:active, 
+  .modal-footer button:active,
+  .modal-header button:focus,
+  .modal-footer button:focus {
+      outline: none !important;
+  }
 /********************************/
 /********* Header Title *********/
 
 .modal-header .modal-title {
-    display: inline;
+  display: inline;
 }
 /*RTL*/
 .modal-rtl .modal-header .modal-title {
-    float: right;
+  float: right;
 }
 /********************************/
 /******** Header Buttons ********/
 
 .modal-header .modal-header-btn {
-    float: right;
-    font-size: 20px;
-    /*margin-left: 5px;*/
+  float: right;
+  font-size: 20px;
+  /*margin-left: 5px;*/
 }
 /*RTL*/
 .modal-rtl .modal-header .modal-header-btn {
-    float: left;
-    /*margin-left: 0;
-    margin-right: 5px;*/
+  float: left;
+  /*margin-left: 0;
+  margin-right: 5px;*/
 }
 
 .modal-header-btn + .modal-header-btn {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 .modal-rtl .modal-header-btn + .modal-header-btn {
-    margin-right: 0;
-    margin-left: 5px;
+  margin-right: 0;
+  margin-left: 5px;
 }
 
 .modal-header-btn.modal-close-btn {
-    color: #f57171;
-    opacity: inherit;
-    font-size: 28px;
-    padding: 0;
-    margin: 0;
-    margin-top: -2px;
+  color: #f57171;
+  opacity: inherit;
+  font-size: 28px;
+  padding: 0;
+  margin: 0;
+  margin-top: -2px;
 }
 
 .modal-header-btn.modal-expand-btn {
-    color: #744d34;
-    background-color: #f3dabf;
-    border: 1px solid #a47b67;
-    border-radius: 2px;
-    padding: 1px 4px;
-    width: 26px;
-    height: 24px;
-    opacity: .6;
+  color: #744d34;
+  background-color: #f3dabf;
+  border: 1px solid #a47b67;
+  border-radius: 2px;
+  padding: 1px 4px;
+  width: 26px;
+  height: 24px;
+  opacity: .6;
 }
 
-    .modal-header .modal-expand-btn:hover {
-        color: #fff;
-        background-color: #a47b67;
-        border: 1px solid #744d34;
-    }
+  .modal-header .modal-expand-btn:hover {
+      color: #fff;
+      background-color: #a47b67;
+      border: 1px solid #744d34;
+  }
 /********************************/
 /*********** Messages ***********/
 
 .modal-msg-body {
-    display: table;
+  display: table;
 }
 
-    .modal-msg-icon-wrap, 
-    .modal-msg-content-wrap {
-        display: table-cell;
-        vertical-align: middle;
-        padding-left: 5px;
-        padding-right: 5px;
-    }
+  .modal-msg-icon-wrap, 
+  .modal-msg-content-wrap {
+      display: table-cell;
+      vertical-align: middle;
+      padding-left: 5px;
+      padding-right: 5px;
+  }
 
-        .modal-msg-icon {
-            font-size: 45px;
-        }
+      .modal-msg-icon {
+          font-size: 45px;
+      }
 
-        .error-modal .modal-msg-icon {
-            color: red;
-        }
+      .error-modal .modal-msg-icon {
+          color: red;
+      }
 
-        .warning-modal .modal-msg-icon {
-            color: #fba62e;
-        }
+      .warning-modal .modal-msg-icon {
+          color: #fba62e;
+      }
 
-        .info-modal .modal-msg-icon {
-            color: #1455d0;
-        }
+      .info-modal .modal-msg-icon {
+          color: #1455d0;
+      }
 
-        .prompt-modal .prompt-modal-txt {
-            margin-top: 5px;
-        }
+      .prompt-modal .prompt-modal-txt {
+          margin-top: 5px;
+      }
 
-        /*.confirm-modal .modal-msg-icon {
-            color: #5cb85c;
-        }*/
+      /*.confirm-modal .modal-msg-icon {
+          color: #5cb85c;
+      }*/
 /********************************/
 /********* classic-theme ********/
 
 .modal.classic-theme .modal-content {
-    border: 0;
-    border-bottom: 3px solid;
-    border-radius: 3px;
-    /*border-bottom-color: rgb(136, 160, 185);*/
-    border-bottom-color: #609cc3;
+  border: 0;
+  border-bottom: 3px solid;
+  border-radius: 3px;
+  /*border-bottom-color: rgb(136, 160, 185);*/
+  border-bottom-color: #609cc3;
 }
 .modal.classic-theme.error-modal .modal-content {
-   border-bottom-color: #dba1a1;
+ border-bottom-color: #dba1a1;
 }
 .modal.classic-theme.warning-modal .modal-content {
-   border-bottom-color: #eabd7e;
+ border-bottom-color: #eabd7e;
 }
 .modal.classic-theme.info-modal .modal-content {
-   border-bottom-color: #8bc4d5;
+ border-bottom-color: #8bc4d5;
 }
 .modal.classic-theme.confirm-modal .modal-content {
-   border-bottom-color: #79c579;
+ border-bottom-color: #79c579;
 }
 
-    .modal.classic-theme .modal-header {
-        /*background: rgb(136, 160, 185);*/
-        /*background: radial-gradient(#a1b1c3, #88a0b9);*/
-        /*background: radial-gradient(#bcc5cf, #88a0b9);*/
-        /*background: radial-gradient(#a1b1c3, #6984a0);*/
-        border-radius: 0; /* Override bs v.4 */
-        background: radial-gradient(#7cb5d1, #3074ae);
-        box-shadow: inset 0 -10px 15px -12px rgba(0, 0, 0, 0.3), 0 0 0px #555;
-        padding: 10px 15px;
-        color: white;
-    }
-    .modal.classic-theme.error-modal .modal-header {
-       background: radial-gradient(#f0bfbf, #d18e8e);
-    }
-    .modal.classic-theme.warning-modal .modal-header {
-       background: radial-gradient(#ffdfb1, #cfa66c);
-    }
-    .modal.classic-theme.info-modal .modal-header {
-       background: radial-gradient(#bae3ee, #76b7cb);
-    }
-    .modal.classic-theme.confirm-modal .modal-header {
-       background: radial-gradient(#afe0af, #60b660);
-    }
+  .modal.classic-theme .modal-header {
+      /*background: rgb(136, 160, 185);*/
+      /*background: radial-gradient(#a1b1c3, #88a0b9);*/
+      /*background: radial-gradient(#bcc5cf, #88a0b9);*/
+      /*background: radial-gradient(#a1b1c3, #6984a0);*/
+      border-radius: 0; /* Override bs v.4 */
+      background: radial-gradient(#7cb5d1, #3074ae);
+      box-shadow: inset 0 -10px 15px -12px rgba(0, 0, 0, 0.3), 0 0 0px #555;
+      padding: 10px 15px;
+      color: white;
+  }
+  .modal.classic-theme.error-modal .modal-header {
+     background: radial-gradient(#f0bfbf, #d18e8e);
+  }
+  .modal.classic-theme.warning-modal .modal-header {
+     background: radial-gradient(#ffdfb1, #cfa66c);
+  }
+  .modal.classic-theme.info-modal .modal-header {
+     background: radial-gradient(#bae3ee, #76b7cb);
+  }
+  .modal.classic-theme.confirm-modal .modal-header {
+     background: radial-gradient(#afe0af, #60b660);
+  }
 
-        .modal.classic-theme .modal-header .modal-header-btn {
-            color: black;
-            font-size: 14px;
-            opacity: 0.3;
-            padding: 4px;
-            border: none;
-            background-color: white;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-        }
+      .modal.classic-theme .modal-header .modal-header-btn {
+          color: black;
+          font-size: 14px;
+          opacity: 0.3;
+          padding: 4px;
+          border: none;
+          background-color: white;
+          border-radius: 50%;
+          width: 22px;
+          height: 22px;
+      }
 
-        .modal.classic-theme .modal-header .modal-close-btn {
-            margin-top: 0;
-            transition: transform 0.5s cubic-bezier(.16,.81,.32,1), opacity 0.5s ease;
-        }
+      .modal.classic-theme .modal-header .modal-close-btn {
+          margin-top: 0;
+          transition: transform 0.5s cubic-bezier(.16,.81,.32,1), opacity 0.5s ease;
+      }
 
-            .modal.classic-theme .modal-header .modal-close-btn:hover {
-                opacity: 0.8;
-                transform: rotate(180deg);
-            }
+          .modal.classic-theme .modal-header .modal-close-btn:hover {
+              opacity: 0.8;
+              transform: rotate(180deg);
+          }
 
 
-        .modal.classic-theme .modal-header .modal-expand-btn:hover {
-            opacity: 0.8;
-            color: black;
-            border: none;
-            background-color: white;
-        }
+      .modal.classic-theme .modal-header .modal-expand-btn:hover {
+          opacity: 0.8;
+          color: black;
+          border: none;
+          background-color: white;
+      }
 
-    .modal.classic-theme .modal-footer {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
+  .modal.classic-theme .modal-footer {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
 /********************************/
 /******** colorfull-theme *******/
 
 .modal.colorfull-theme {
-    z-index: 9999999999999999 !important;
+  z-index: 9999999999999999 !important;
 }
 
 /*** Scrollable ***/
 .modal.colorfull-theme.scrollable .modal-body::-webkit-scrollbar {
-    width: 12px;
+  width: 12px;
 }
 
 .modal.colorfull-theme.scrollable .modal-body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 10px;
-    background-color: white;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: white;
 }
 
 .modal.colorfull-theme.scrollable .modal-body::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px;
-    box-shadow: inset 0 0 6px;
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px;
+  box-shadow: inset 0 0 6px;
 }
 .modal.colorfull-theme.default-modal.scrollable .modal-body::-webkit-scrollbar-thumb {
-    color:  #0a88a4; /* This is the scrollbar color */
+  color:  #0a88a4; /* This is the scrollbar color */
 }
 .modal.colorfull-theme.error-modal.scrollable .modal-body::-webkit-scrollbar-thumb {
-    color: #d43f3a; /* This is the scrollbar color */
+  color: #d43f3a; /* This is the scrollbar color */
 }
 .modal.colorfull-theme.warning-modal.scrollable .modal-body::-webkit-scrollbar-thumb {
-    color: #ff9800; /* This is the scrollbar color */
+  color: #ff9800; /* This is the scrollbar color */
 }
 .modal.colorfull-theme.info-modal.scrollable .modal-body::-webkit-scrollbar-thumb {
-    color: #0baad8; /* This is the scrollbar color */
+  color: #0baad8; /* This is the scrollbar color */
 }
 .modal.colorfull-theme.confirm-modal.scrollable .modal-body::-webkit-scrollbar-thumb {
-    color: #0b8c4d; /* This is the scrollbar color */
+  color: #0b8c4d; /* This is the scrollbar color */
 }
 
 /*** Content ***/
 .modal.colorfull-theme .modal-content {
-    border-width: 2px;
-    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
-    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+  border-width: 2px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
 .modal.colorfull-theme.default-modal .modal-content {
-    /*background-color: white;*/
-    border-color: #0a88a4;
-    background-color: #fff8ea;
+  /*background-color: white;*/
+  border-color: #0a88a4;
+  background-color: #fff8ea;
 }
 
 .modal.colorfull-theme.error-modal .modal-content {
-    /*background-color: #ffa9a9;*/
-    border-color: #d43f3a;
+  /*background-color: #ffa9a9;*/
+  border-color: #d43f3a;
 }
 
 .modal.colorfull-theme.warning-modal .modal-content {
-    /*background-color: #ffe6c4;*/
-    border-color: #ff9800;
+  /*background-color: #ffe6c4;*/
+  border-color: #ff9800;
 }
 
 .modal.colorfull-theme.info-modal .modal-content {
-    /*background-color: #d0eff9;*/
-    border-color: #0baad8;
+  /*background-color: #d0eff9;*/
+  border-color: #0baad8;
 }
 
 .modal.colorfull-theme.confirm-modal .modal-content {
-    /*background-color: #3a9c6c;*/
-    border-color: #0b8c4d;
+  /*background-color: #3a9c6c;*/
+  border-color: #0b8c4d;
 }
 .modal.colorfull-theme .modal-content::after {
-    background: linear-gradient(to right, #b5d56a 20%, #ea7066 20%, #ea7066 40%, #84bed6 40%, #84bed6 60%, #a597e7 60%, #a597e7 80%, #ea77ad 80%, #ea77ad 100%);
-    position: absolute;
-    content: '';
-    height: 4px;
-    right: 0;
-    left: 0;
-    top: 55px;
-    border: 1px solid black;
+  background: linear-gradient(to right, #b5d56a 20%, #ea7066 20%, #ea7066 40%, #84bed6 40%, #84bed6 60%, #a597e7 60%, #a597e7 80%, #ea77ad 80%, #ea77ad 100%);
+  position: absolute;
+  content: '';
+  height: 4px;
+  right: 0;
+  left: 0;
+  top: 55px;
+  border: 1px solid black;
 }
 
 /*** Header ***/
 .modal.colorfull-theme .modal-header {
-    text-align: center;
+  text-align: center;
 }
 
 .modal.colorfull-theme .modal-title {
-    /*text-align: center;*/
-    color: #0d6c82;
-    font-weight: bold;
-    text-transform: uppercase;
+  /*text-align: center;*/
+  color: #0d6c82;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 .modal-rtl.colorfull-theme .modal-title {
-    float: none;
+  float: none;
 }
 .modal.colorfull-theme.error-modal .modal-title {
-    color: red;
+  color: red;
 }
 .modal.colorfull-theme.warning-modal .modal-title {
-    color: #d47f02;
+  color: #d47f02;
 }
 .modal.colorfull-theme.info-modal .modal-title {
-    color: #148aad;
+  color: #148aad;
 }
 .modal.colorfull-theme.confirm-modal .modal-title {
-    color: #398439;
+  color: #398439;
 }
 
-    .modal.colorfull-theme .modal-header .modal-close-btn {
-        color: #f57171;
-        font-size: 28px;
-        opacity: .6;
-    }
-    .modal.colorfull-theme .modal-header .modal-close-btn:hover {
-        opacity: .9;
-    }
+  .modal.colorfull-theme .modal-header .modal-close-btn {
+      color: #f57171;
+      font-size: 28px;
+      opacity: .6;
+  }
+  .modal.colorfull-theme .modal-header .modal-close-btn:hover {
+      opacity: .9;
+  }
 
 /*** Body ***/
 .modal.colorfull-theme .modal-body {
-    color: black;
-    font-size: 15px;
-    padding: 10px;
+  color: black;
+  font-size: 15px;
+  padding: 10px;
 }
 
 /*** Footer ***/
 .modal.colorfull-theme .modal-footer {
-    border-top: 0;
+  border-top: 0;
 }
 
-    .modal.colorfull-theme.default-modal .modal-footer button {
-        border: 2px solid;
-        background-color: #d5eaef;
-        border-color: #0a88a4;
-        color: #146c80;
-    }
+  .modal.colorfull-theme.default-modal .modal-footer button {
+      border: 2px solid;
+      background-color: #d5eaef;
+      border-color: #0a88a4;
+      color: #146c80;
+  }
 
-    .modal.colorfull-theme.default-modal .modal-footer button:hover {
-        background-color: #0a88a4;
-        border-color: #d5eaef;
-        color: #ffffff;
-    }
+  .modal.colorfull-theme.default-modal .modal-footer button:hover {
+      background-color: #0a88a4;
+      border-color: #d5eaef;
+      color: #ffffff;
+  }
 
-    .modal.colorfull-theme.confirm-modal button.btn-default {
-        color: #333;
-        background-color: #fff;
-        border-color: #ccc;
-    }
+  .modal.colorfull-theme.confirm-modal button.btn-default {
+      color: #333;
+      background-color: #fff;
+      border-color: #ccc;
+  }
 
-        .modal.colorfull-theme.confirm-modal button.btn-default:hover {
-            color: #333;
-            background-color: #e6e6e6;
-            border-color: #adadad;
-        }
+      .modal.colorfull-theme.confirm-modal button.btn-default:hover {
+          color: #333;
+          background-color: #e6e6e6;
+          border-color: #adadad;
+      }
 /********************************/
 /******** Media Queries *********/
 
 @media (min-width: 992px) {
-    /* Support modal-xl style for bootstrap 3, this class exists in bs.v4 and bs.v4 is using max-width instead of width */
-    .modal-xl {
-        width: 900px;
-    }
+  /* Support modal-xl style for bootstrap 3, this class exists in bs.v4 and bs.v4 is using max-width instead of width */
+  .modal-xl {
+      width: 900px;
+  }
 }
 
 @media (min-width: 1200px) {
-    /* Support modal-xl style for bootstrap 3, this class exists in bs.v4 and bs.v4 is using max-width instead of width */
-    .modal-xl {
-        width: 1140px;
-    }
+  /* Support modal-xl style for bootstrap 3, this class exists in bs.v4 and bs.v4 is using max-width instead of width */
+  .modal-xl {
+      width: 1140px;
+  }
 }
 
 /*
-    Add a workaound to fix the design of tables inside a modal
-    TODO_N: Investigate all possible ways to vertically center a modal containing tables
+  Add a workaound to fix the design of tables inside a modal
+  TODO_N: Investigate all possible ways to vertically center a modal containing tables
 */
 @media (max-width: 500px) {
-    .modal.modal-center-flex table {
-        max-width: 370px;
-    }
+  .modal.modal-center-flex table {
+      max-width: 370px;
+  }
 }
 @media (max-width: 425px) {
-    .modal.modal-center-flex table {
-        max-width: 370px;
-    }
+  .modal.modal-center-flex table {
+      max-width: 370px;
+  }
 }
 @media (max-width: 375px) {
-    .modal.modal-center-flex table {
-        max-width: 319px;
-    }
+  .modal.modal-center-flex table {
+      max-width: 319px;
+  }
 }
 @media (max-width: 320px) {
-    .modal.modal-center-flex table {
-        max-width: 285px;
-    }
+  .modal.modal-center-flex table {
+      max-width: 285px;
+  }
 }
+
 /*@media (max-width: 480px) {*/
-    /*********************/
-    /**** Full Screen ****/
+  /*********************/
+  /**** Full Screen ****/
 
-    /*.modal.full-screen .modal-dialog {
-        width: 95% !important;
-        max-width: 95% !important;
-        height: 95% !important;
-        max-height: 95% !important;
-    }
+  /*.modal.full-screen .modal-dialog {
+      width: 95% !important;
+      max-width: 95% !important;
+      height: 95% !important;
+      max-height: 95% !important;
+  }
 
-        .modal.full-screen .modal-body {
-            height: 90% !important;
-            max-height: 90% !important;
-        }*/
+      .modal.full-screen .modal-body {
+          height: 90% !important;
+          max-height: 90% !important;
+      }*/
 /*}*/
 
 
 
 /*
 .modal-msg-body {
-    padding: 5px 10px;
-    text-align: justify;
-    word-break: break-all;
+  padding: 5px 10px;
+  text-align: justify;
+  word-break: break-all;
 }
 */
 
@@ -30668,7 +30759,6 @@ styles of typography  https://github.com/melnik909/css-typography
   margin-top: var(--cssTypographyBasicMargin, 0.75em);
   margin-bottom: 0;
   font-weight: bold;
-  text-transform: uppercase;
 }
 
 .dashboard-timeline p:not([class]):first-child{
@@ -30680,8 +30770,9 @@ skin
 */
 
 .dashboard-timeline .time{
+  height: 46px;
+  width: 50px;
   background-color: var(--timeBackgroundColor, #f0f0f0);
-
   font-size: var(--timeFontSize, .75rem);
   font-weight: var(--timeFontWeight, 700);
   text-transform: var(--timeTextTransform, uppercase);
@@ -30697,7 +30788,7 @@ core styles
 }
 
 .dashboard-timeline .card__content{
-  margin-top: var(--cardContentMarginTop, .5rem);
+  margin-top: -16px;
 }
 
 .dashboard-timeline .card__header {
@@ -30708,11 +30799,13 @@ core styles
 
 .dashboard-timeline .time__month {
   color: white;
+  padding: 2px;
+  text-align: center;
 }
 
 .dashboard-timeline .time__day {
-  font-size: 45px; 
-  margin: -15px 0 -4px 0;
+  font-size: 16px; 
+  margin-top: -8px;
 }
 
 /*
@@ -30737,6 +30830,8 @@ CORE STYLES
 */
 
 .dashboard-timeline .timeline__year{
+  height: 33px;
+  width: 80px;
   margin-bottom: 1.25rem; /* 1 */
   font-size: 16px;
   font-weight: bold;
@@ -30831,6 +30926,30 @@ INDEX.HTML PRELOADER
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/** group_list.js **/
+.custom-checkbox.selectable {
+  margin-right: -20px; 
+  margin-top: -5px; 
+  z-index: 1;
+}
+
+.entry-search-btn {
+  left: 81%; 
+  top:-5px; 
+  background: #886ab5; 
+  border-radius: 21px; 
+  padding: 1px 4px;
+}
+
+.entry-search-btn .fa-search {
+  font-size: 15px; 
+  color: white
+}
+
+.entry.selectable {
+  border: 3px solid #886ab5;
 }
 .main-menu-navbar {
     background-color: white !important;
@@ -37340,6 +37459,15 @@ RESULT:
     right: 34% !important;
   }
   }
+
+  @media only screen 
+  and (min-width: 992px) {
+    .buttons-row {
+      position: absolute !important;
+      bottom: 0;
+      right: 0;
+    }
+  }
 #nearbyPlacesContainer [data-toggle="collapse"] .collapseIcon:before {  
   content: "\f139";
 }
@@ -37363,6 +37491,10 @@ RESULT:
   background-color: purple;
 }
 
+.buttons-row {
+  position: unset;
+}
+
 /* To use our own colors on bootstrap switch, we need to create our own CSS class. */
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-gray,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-gray {
@@ -37377,7 +37509,7 @@ RESULT:
 }
 
 .view-container #residentialContainer {
-  margin-top: -72px;
+  margin-top: -60px;
 }
 
 .view-container #residentialContainer #listCol {
