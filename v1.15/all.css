@@ -24492,12 +24492,17 @@ textarea.has-float-label:not([data-val='']) + label {
   -moz-transition: 0.2s ease all;
   -webkit-transition: 0.2s ease all;
   pointer-events: none;
-  width: inherit;
+  width: auto;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   /* min-width: 170px;
   background: transparent !important; */
+}
+
+.col-sm-6 .input-group .form-group-wrap label,
+.col-12 .input-group .form-group-wrap label {
+  width: inherit !important;
 }
 /**** End of floating label ***/
 
