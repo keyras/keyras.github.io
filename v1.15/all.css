@@ -24185,10 +24185,10 @@ div.offer-settings div.content div div.config-ui {
 .entry.residential-card {
   display: inline-block;
   position: relative;
-  width: 172px;
+  width: 160px;
   max-height: 450px;
   overflow: auto;
-  min-height: 333px;
+  min-height: 295px;
 }
 
 #ungroupPanel .card.wallet-card {
