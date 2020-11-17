@@ -25412,10 +25412,13 @@ textarea.has-float-label:not([data-val='']) + label {
 }
 
 h1.no-results-msg {
-  font-size: 250% !important;
+  font-size: 350%;
 }
 
 @media (max-width:911px) {
+  h1.no-results-msg {
+    font-size: 250% !important;
+  }
   .checklist-field.mw-410 {
     min-width: unset !important;
   }
