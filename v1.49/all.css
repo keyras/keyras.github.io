@@ -19854,12 +19854,12 @@ code {
   cursor: pointer; }
 
 .star:before {
-  content: "";
+  content: "☆";
   position: absolute;
   visibility: visible; }
 
 .star:checked:before {
-  content: "";
+  content: "★";
   position: absolute; }
 
 .shadow-top:after,
@@ -20113,7 +20113,7 @@ body:not(.mobile-view-activated).mod-main-boxed.modal-open {
 					RESPONSIVE REFERENCES
 
 .col-xs-	.col-sm-	.col-md-	.col-lg-	.col-xl-
-<544px		544px		768px		992px		1200px
+<544px		≥544px		≥768px		≥992px		≥1200px
 
 $grid-breakpoints: (
   // Extra small screen / phone
@@ -22259,7 +22259,7 @@ body:not(.mobile-detected).modal-open .modal::-webkit-scrollbar-thumb:vertical:h
 
 /*# sourceMappingURL=app.bundle.css.map */
 
-/*********************************/
+﻿/*********************************/
 /************ Select2 ************/
 
 .select2-container[dir="rtl"] {
@@ -22307,7 +22307,7 @@ body:not(.mobile-detected).modal-open .modal::-webkit-scrollbar-thumb:vertical:h
         .select2-container .select2-results__option[aria-selected=true]:before {
             /*margin-right: 5px;
             margin-left: -5px;*/
-            content: "";
+            content: "✓";
             color: #2f7abb;
             font-weight: bold;
             font-size: 14px;
@@ -22338,7 +22338,7 @@ body:not(.mobile-detected).modal-open .modal::-webkit-scrollbar-thumb:vertical:h
 .select2-container .select2-selection--single {
     height: 32px;
 }
-.paging-edit-rows-per-page-addon {
+﻿.paging-edit-rows-per-page-addon {
     padding: 0px;
     border: 0px;
     background-color: white;
@@ -22367,7 +22367,7 @@ body:not(.mobile-detected).modal-open .modal::-webkit-scrollbar-thumb:vertical:h
     margin-left: 0;
     margin-right: -1px;
 }
-/*
+﻿/*
     Table View "tblv"
 */
 
@@ -24222,7 +24222,7 @@ div.offer-settings div.content div div.config-ui {
 .modal-backdrop {
   z-index: 10;
 }
- .page-sidebar {
+​ .page-sidebar {
   z-index: 19;
 }
 .page-header {
@@ -26569,7 +26569,7 @@ background-color: white !important;
   top: -53px;
 }
 /* END of common.js */
-/*
+﻿/*
     TODO_N:
       Remove font-size, and costumize the font size on site template file
       Remove important, z-index
@@ -29014,7 +29014,7 @@ body:not(.lg-from-hash) .lg-outer.lg-start-zoom .lg-item.lg-complete .lg-object 
 
 /*# sourceMappingURL=lightgallery.bundle.css.map */
 
-
+﻿
 .addAprovedItemBtn {
 float: right;
 margin-top: -30px;
@@ -32095,7 +32095,7 @@ color : #948da2 ;
     border-bottom-color: #eabd7e !important;
 }
 
-/* 
+﻿/* 
 	ComboEdit(combo-ed)
 */
 
@@ -32165,8 +32165,8 @@ select.input-validation-error + .combo-ed {
 			flex: 1;
 			/* Important Note: 
 				text-overflow ellipsis on flex child not working. 
-				By default, flex items wont shrink below their minimum content size.
-				  This means the minimum width of an item is set to the width of its content and it wont shrink past that width. 
+				By default, flex items won’t shrink below their minimum content size.
+				  This means the minimum width of an item is set to the width of its content and it won’t shrink past that width. 
 				  This can result in layouts appearing uneven or wrapping too early. By adding min-width: 0 to the item, it will 
 				  resize at the correct ratio and still apply the overflow as desired.
 			*/
@@ -34404,7 +34404,7 @@ body {
 
 
 
-.phone-edit-country-addon {
+﻿.phone-edit-country-addon {
   padding: 0px;
   border: 0px;
   background-color: white;
@@ -36860,25 +36860,25 @@ from https://feathericons.com/ and built with IcoMoon
   -moz-osx-font-smoothing: grayscale; }
 
 .fc-icon-chevron-left:before {
-  content: ""; }
+  content: ""; }
 
 .fc-icon-chevron-right:before {
-  content: ""; }
+  content: ""; }
 
 .fc-icon-chevrons-left:before {
-  content: ""; }
+  content: ""; }
 
 .fc-icon-chevrons-right:before {
-  content: ""; }
+  content: ""; }
 
 .fc-icon-minus-square:before {
-  content: ""; }
+  content: ""; }
 
 .fc-icon-plus-square:before {
-  content: ""; }
+  content: ""; }
 
 .fc-icon-x:before {
-  content: ""; }
+  content: ""; }
 
 .fc-icon {
   display: inline-block;
@@ -37562,7 +37562,7 @@ be a descendant of the grid when it is being dragged.
   /* ...instead, display only the start time */ }
 
 .fc-time-grid-event.fc-short .fc-time:after {
-  content: "-";
+  content: " - ";
   /* seperate with a dash, wrapped in nbsp's */ }
 
 .fc-time-grid-event.fc-short .fc-title {
