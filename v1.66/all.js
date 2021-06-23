@@ -985,7 +985,7 @@ const FontAwesomeKey = Object.freeze({
 
 		var init = function () {
 			this.$element.on("mouseenter", onMouseEnter.bind(this));
-		}
+		};
 
 		var onMouseEnter = function (e) {
 			var $element = this.$element;
@@ -29925,7 +29925,7 @@ function promptAddThenReload(multiObject, modalTitle, obj_schema_name, obj_type,
       var $selection = _(this).$selection;
       var selectedItem = $("<span>").append(`<span>${counter} selected</span>`);
       $selection.append(selectedItem);
-    }
+    };
 
     //var unSelectOption = function (id) {
     //    // 1. Remove selected class from custom option
@@ -33463,6 +33463,579 @@ class EditableAdvancedMultipleObjectField extends BaseEditableField {
   }
 }
 
+class EditableAdvancedMultipleObjectFieldV2 extends BaseEditableField {
+  constructor(field, renderOn, onChangeCallback) {
+    super(field, renderOn, onChangeCallback);
+    this.currentSelected = new Set();
+  }
+  _render(value) {
+    if (this.field['readonly']) {
+      EditableAdvancedMultipleObjectFieldV2.renderReadOnlyValue(
+        this.renderOn,
+        value,
+        this.field
+      );
+      return;
+    }
+    this.defaultDomText = this.field["defaultDomText"];
+    var addFn = this.field["+"];
+    if (typeof (addFn) == 'string') {
+      addFn = eval(addFn);
+    }
+
+    if (addFn) {
+      addFn = addFn.bind(this);
+    }
+
+    this.fieldDisplay = this.field["d"] || this.field["n"];
+    this.mainContainer = $('<div class="card">').appendTo(this.renderOn);
+    this.itemsCardsContainer = $('<div class="card border-0">')
+      .attr({
+        style:
+          "-webkit-box-shadow: none !important;box-shadow: none !important;",
+      })
+      .appendTo(this.mainContainer);
+    this.itemsDisplay = $(`<div class="card-header d-table narrow-card-header">
+      <div data-toggle="collapse" data-target="#collapseSelectedItems" class="d-table-cell align-middle" style="width: 90%;">
+        <span id="iItemsCount" class="mb-0 pull-left">
+        </span>
+      </div>
+    </div>
+    <div id="collapseSelectedItems" class="collapse show">
+      <div class="search-box mt-3 d-flex">
+      </div>
+      <div class="card-body multi-obj-Field-Body carousel-container tiny-slider-container">
+      </div>
+    </div>`).appendTo(this.itemsCardsContainer);
+
+    this.itemsCountSpan = $("<span>").appendTo(
+      this.itemsCardsContainer.find("#iItemsCount")
+    );
+
+    this._printSelectedItemsCount();
+    this.addButton = $(
+      `<button class="btn btn-primary btn-sm pull-right"><span>Browse...</span></button>`
+    ).appendTo(this.itemsCardsContainer.find(".card-header"));
+
+    this.selectedItemsFn = null;
+    this.addButton.click(
+      function () {
+        var ajsArgs = {
+          listFnName: this.field["listFnName"],
+          selectable: true,
+          addFn: addFn,
+          initCallback: function (r) {
+            this.groupListVars = r;
+            this.selectedItemsFn = r["getSelectedItems"];
+          }.bind(this),
+        };
+        if (this.field.ajsArgs) {
+          ajsArgs = { ...ajsArgs, ...this.field.ajsArgs };
+        }
+        this.modal = WIRE.modal(
+          "Add " + this.fieldDisplay,
+          u("AJS", ["common/group_list", ajsArgs]),
+          [modalAddButton],
+          { sizeMode: "full" }
+        );
+        // show collapsed panel
+        $(this.itemsCardsContainer)
+          .find("#collapseSelectedItems")
+          .addClass("show");
+      }.bind(this)
+    );
+    var modalAddButton = {
+      label: "Add Selected",
+      onClick: function () {
+        var hasError = false;
+        if (this.selectedItemsFn) {
+          var newSelected = this.selectedItemsFn();
+          newSelected = newSelected.map(id => getFullObjId(id));
+          var prevSelected = Array.from(this.currentSelected);
+          if ("max" in this.field) {
+            // Selected objects + currently selected. Do they exceed max?
+            var totalSelected = prevSelected.concat(newSelected);
+            if (new Set(totalSelected).size > this.field["max"]) {
+              WIRE.errorMessageModal(
+                "Can select at most " + this.field["max"] + " entries"
+              );
+              hasError = true;
+              return;
+            }
+          }
+          // Remove previously-selected items (duplicates).
+          var prevSelectedSet = new Set(prevSelected);
+          newSelected = newSelected.filter(
+            (item) => !prevSelectedSet.has(item)
+          );
+          var cards = [];
+          newSelected.forEach(function (objId) {
+            objId = getFullObjId(objId);
+            var obj = WIRE.d(objId);
+            cards.push({
+              id: objId,
+              element: this._addItem(obj, true, true),
+            });
+
+          }.bind(this));
+          if (cards.length > 0) {
+            this.carouselInstance.addCards(cards);
+            this.carouselInstance.selectCard(newSelected[newSelected.length - 1]);
+            this.carouselInstance.slideToCard(
+              newSelected[newSelected.length - 1]
+            );
+          }
+          this.onChangeCallback();
+        }
+        if (!hasError) {
+          this.modal.close();
+        }
+      }.bind(this),
+      color: "btn btn-primary",
+    };
+
+    this.value = value || {};
+    this._items = this.setValue(this.value);
+
+    this._renderSearchbox();
+    this._createTinySlider(this._items);
+  }
+
+  _renderSearchbox() {
+    var me = this;
+
+    var $searchboxContainer = this.itemsDisplay.find(".search-box");
+
+    // Create title field
+    var $titleContainer = $("<div>").appendTo($searchboxContainer);
+    var titleInstance = new EditableTextField({ t: "text", n: "title", d: "Title" }, $titleContainer);
+    titleInstance.render();
+
+    // Create search button field
+    var buttonInstance = new ReadonlyButtonField({ t: "button", n: "search", d: "Search", class: 'ml-1', click: function () {
+      let values = {};
+      titleInstance.getValue(values);     
+      me._filterTinySlider(values);
+    } }, $searchboxContainer);
+    buttonInstance.render();
+
+    // Create clear button field
+    var buttonInstance = new ReadonlyButtonField({ t: "button", n: "clear", d: "Clear", class: 'ml-1', click: function () {
+      titleInstance.setValue("");
+      me._resetTinySlider();
+    } }, $searchboxContainer);
+    buttonInstance.render();
+  }
+
+  _createTinySlider(items) {
+    let $carouselContainer = this.itemsDisplay.find(".carousel-container");
+    $carouselContainer.append(
+      `<ul class="controls" id="customize-controls" aria-label="Carousel Navigation" tabindex="0">
+        <li class="prev" data-controls="prev" aria-controls="customize" tabindex="-1"><i class="fa fa-angle-left fa-3x"></i></li> 
+        <li class="next" data-controls="next" aria-controls="customize" tabindex="-1"><i class="fa fa-angle-right fa-3x"></i></li>
+      </ul>`);
+
+    let $slider = $("<div class='slider'>")
+      .appendTo($carouselContainer);
+
+    if (items && items.length) {
+      for (let i = 0; i < items.length; i++) {
+        let $slideItemContainer = $("<div style='text-align: center;'>").appendTo($slider);
+        // $slideItemContainer.append(cards[i].element);
+        var selected = i == 0 ? true : false;
+        let $element = this._addItem(items[i].obj, selected);
+        $slideItemContainer.append($element);
+      }
+    }
+
+    // this.itemsDisplay.find(".carousel-container").responsiveCarousel({
+    //   cards: cards,
+    //   selectedCardClass: "residential-listing-selected-card",
+    //   onSelect: function (e, id) {
+    //     this.itemFieldsContainer.empty()
+    //       .css({ 'display': 'block' });
+    //     this._renderItemFields(WIRE.d(id), id, true);
+    //   }.bind(this),
+    //   selectOnNavigate: true,
+    // });
+    // this.carouselInstance = this.itemsDisplay
+    //   .find(".carousel-container")
+    //   .responsiveCarousel("instance");
+    // if (value && Object.keys(value).length) {
+    //   this.carouselInstance.selectCard(Object.keys(value)[0]);
+    // }
+
+    this._slider = tns({
+      container: '.tiny-slider-container > .slider',
+      // loop: true,
+      items: 1,
+      slideBy: 'page',
+      nav: false,
+      // autoplay: true,
+      speed: 400,
+      // autoplayButtonOutput: false,
+      mouseDrag: true,
+      // lazyload: true,
+      controlsContainer: ".tiny-slider-container > #customize-controls",
+      responsive: {
+          640: {
+              items: 2,
+          },
+          768: {
+              items: 4,
+          },
+          992: {
+            items: 6,
+          },
+          1140: {
+            items: 9,
+          },
+          1700: {
+            items: 13,
+          }
+      }
+    });
+  }
+
+  _filterTinySlider(values) {
+    let items = $.extend(true, [], this._items);
+    let filteredItems = items.filter(i => i.obj.name.toLowerCase().trim().indexOf(values.title.toLowerCase()) !== -1);
+
+    if (this._slider) {
+      this._destroyTinySlider();
+    }
+    this._createTinySlider(filteredItems);
+  }
+
+  _resetTinySlider() {
+    if (this._slider) {
+      this._destroyTinySlider();
+    }
+    this._createTinySlider(this._items);
+  }
+
+  _destroyTinySlider() {
+    this._slider.destroy();
+    this.itemsDisplay.find(".carousel-container").empty();
+  }
+
+  _printSelectedItemsCount() {
+    this.itemsCountSpan.html(
+      this.fieldDisplay + ": " + this.currentSelected.size + " selected"
+    );
+    if (this.currentSelected.size == 0) {
+      $(this.itemsDisplay).find(".multi-obj-Field-Body").css("padding", "0px");
+    } else {
+      $(this.itemsDisplay).find(".multi-obj-Field-Body").css("padding", "1rem 1.4rem");
+    }
+  }
+
+  _addItem(obj, slideToCard = false) {
+    var objId = getFullObjId(obj._id ? obj._id : obj);
+    this.currentSelected.add(objId);
+    this._setItemFieldsValue(obj, objId);
+    //TODO whats about the obj in else statement??
+    return this._createItemCard(obj, objId, slideToCard);
+  }
+
+  _createItemCard(obj, objId) {
+    if (!objId.startsWith("!obj!")) {
+      objId = "!obj!" + objId;
+    }
+    var uiObjId = objId.replace("!obj!", "").replace(":", "_");
+
+    var defaultDomText = typeof obj != 'string' ? '' : this.field["defaultDomText"] || 'Item is no longer available!';
+    var objDom = WIRE.depictor.createItemDom(obj, true, defaultDomText).click(
+      function () {
+        // Show objDom(ItemCard) related fields
+        // var targetObjFieldsContainer = this.itemFieldsContainer.find(`#${uiObjId}`);
+        var targetObjFieldsContainer = this.mainContainer.find("#collapseSelectedItems").find(`#${uiObjId}`);
+        targetObjFieldsContainer
+          .siblings(".obj-fields-container")
+          .css({ visibility: "hidden", opacity: 0, "max-height": 0 });
+        targetObjFieldsContainer.css({
+          visibility: "visible",
+          opacity: 1,
+          "max-height": "100%",
+        });
+
+      }.bind(this)
+    );
+
+    var btnRemove = $(
+      "<div class='fa fa-times-circle position-absolute' style='z-index: 1;right: -8px;top: -9px; color: red; background-image: radial-gradient(at center, white 40%, transparent 40%); font-size: 20px;'></div>"
+    );
+    btnRemove.prependTo(objDom.find('.card').length ? objDom.find('.card') : objDom);
+    btnRemove.on(
+      "click",
+      function (e) {
+        this.currentSelected.delete(objId);
+        // Remove the item from value object
+        delete this.value[objId];
+        // Remove the item from items array
+        let index = this._items.findIndex(i => i.id === objId);
+        this._items.splice(index, 1);
+        // Remove the item from UI
+        // this.carouselInstance.removeCard(objId);
+        $(e.toElement).closest(".tns-item").remove();
+        this._slider.refresh();
+        // if (this.carouselInstance.isEmpty()) {
+        //   this.itemFieldsContainer.empty()
+        //     .css({ 'display': 'none' });
+        // }
+        this._printSelectedItemsCount();
+        this.onChangeCallback({
+          instance: this,
+        });
+      }.bind(this)
+    );
+
+    var btnView = $(
+      "<div class='position-absolute' style='z-index: 1;right: -8px; top:7px; font-size:17px!important;'></div>"
+    ).append(`<div class='icon-stack'>
+                  <i class="base base-7 icon-stack-3x opacity-100 color-primary-500"></i> <i class="fa fa-search icon-stack-2x opacity-100 color-white fa-flip-horizontal"></i>
+                  </div>`);
+    btnView.insertBefore(objDom.find(".icon"));
+    btnView.on(
+      "click",
+      function (e) {
+        WIRE.popupObjectView(obj, {}, true);
+      }.bind(this)
+    );
+
+    objDom.attr("id", uiObjId);
+    objDom.css("margin-top", "7px");
+    this._printSelectedItemsCount();
+    return objDom;
+  }
+
+  _renderItemFields(obj, objId) {
+    if (!objId.startsWith("!obj!")) {
+      objId = "!obj!" + objId;
+    }
+    var uiObjId = objId.replace("!obj!", "").replace(":", "_");
+
+    if (this.field.fields) {
+      debugger; //TODO_N
+      var objFieldsContainer = $("<div>")
+        .addClass("obj-fields-container")
+        .addClass(this.field['vertical-flex'] ? 'd-flex align-items-start flex-column' : '')
+        .attr("id", uiObjId)
+        .css({ "max-height": "100%" })
+        .appendTo(this.itemFieldsContainer);
+
+      var objValues = this.value[objId] || {};
+
+      this.field.fields.forEach(
+        function (f) {
+          var fieldClass = getEditableFieldClass(f);
+          var fieldInstance = new fieldClass(
+            f,
+            objFieldsContainer,
+            function () {
+              this.value[objId][f["n"]] = fieldInstance.readValue();
+              this.onChangeCallback({
+                instance: this,
+                field: fieldInstance,
+              });
+            }.bind(this)
+          );
+
+          var fieldValue = this.field[f["n"]];
+          if ("default_value" in f) {
+            fieldValue = f["default_value"];
+          }
+          if ("default_value" in this.field) {
+            fieldValue = this.field["default_value"][f["n"]];
+          }
+          if ("default_value_ref" in f) {
+            fieldValue = obj[f["default_value_ref"]];
+          }
+          if (f["n"] in objValues) {
+            fieldValue = objValues[f["n"]];
+          }
+          if (typeof obj !== "string" && f["n"] in obj) {
+            fieldValue = obj[f["n"]];
+          }
+          if (f['pre_blurb']) {
+            objFieldsContainer.append($('<div class="preblurb col-12">').html(f['pre_blurb']));
+          }
+          fieldInstance.render(fieldValue);
+          if (f['post_blurb']) {
+            objFieldsContainer.append($('<div class="postblurb">').html(f['post_blurb']));
+          }
+          if (fieldValue !== undefined) {
+            objValues[f["n"]] = fieldValue;
+            this.onChangeCallback({
+              instance: this,
+              field: fieldInstance,
+            });
+          }
+          this.value[objId] = objValues;
+          this.onChangeCallback({
+            instance: this,
+          });
+          objFieldsContainer.children().last().addClass("mb-2");
+          // return fieldInstance;
+        }.bind(this)
+      );
+    }
+  }
+
+  _setItemFieldsValue(obj, objId) {
+    objId = getFullObjId(objId);
+    if (this.field.fields) {
+      var objValues = this.value[objId] || {};
+      this.field.fields.forEach(function (f) {
+        //fieldValue = objValues[f["n"]] || obj[f["default_value_ref"]] ||
+        var fieldValue = this.field[f["n"]];
+        if ("default_value" in f) {
+          fieldValue = f["default_value"];
+        }
+        if ("default_value" in this.field) {
+          fieldValue = this.field["default_value"][f["n"]];
+        }
+        if ("default_value_ref" in f) {
+          fieldValue = obj[f["default_value_ref"]];
+        }
+        if (f["n"] in objValues) {
+          fieldValue = objValues[f["n"]];
+        }
+        if (typeof obj !== "string" && f["n"] in obj) {
+          fieldValue = obj[f["n"]];
+        }
+        if (fieldValue !== undefined) {
+          objValues[f["n"]] = fieldValue;
+        }
+        this.value[objId] = objValues;
+      }.bind(this)
+      );
+    }
+  }
+
+  readValue_() {
+    return this.value;
+  }
+
+  getValue(valueDict) {
+    var values = this.readValue();
+    if (!Object.keys(values).length && this.field["r"]) {
+      return "Field is required";
+    }
+    valueDict[this.field["n"]] = values;
+  }
+
+  setValue(value) {
+    var items = [];
+    this.currentSelected.clear();
+    if (value && !value.hasNoKeys()) {
+      Object.keys(value).forEach(
+        function (key, index) {
+          if (value.hasOwnProperty(key)) {
+            var obj = WIRE.d(key);
+            // if (typeof obj != 'string') {
+            // var selected = index == 0 ? true : false;
+            // items.push({ id: key, element: this._addItem(obj, selected) });
+            items.push({ id: key, obj: obj });
+            // }
+          }
+        }.bind(this)
+      );
+    }
+    return items;
+  }
+
+  static renderReadOnlyValue(renderOn, fieldValue, fieldSchema) {
+    fieldValue = fieldValue || {};
+    var fieldDisplay = fieldSchema["d"] || fieldSchema["n"];
+
+    var cards = [];
+    for (var key in fieldValue || {}) {
+      (function (key) {
+        if (fieldValue.hasOwnProperty(key)) {
+          var obj = WIRE.d(key);
+          // if (typeof obj != 'string') {
+          var defaultDomText = typeof obj != 'string' ? '' : 'Item is no longer available!';
+          var objDom = WIRE.depictor.createItemDom(obj, true, defaultDomText);
+          var objId = obj._id ? obj._id : obj;
+          if (!objId.startsWith("!obj!")) {
+            objId = "!obj!" + objId;
+          }
+          var uiObjId = objId.replace("!obj!", "").replace(":", "_");
+          objDom.attr("id", uiObjId);
+
+          var btnView = $(
+            "<div class='position-absolute' style='z-index: 1;right: -8px;top: -9px; color: #826baf;  font-size: 22px;'></div>"
+          ).append(`<div class='icon-stack'>
+                         <i class="base base-7 icon-stack-3x opacity-100 color-primary-500"></i> <i class="fa fa-search icon-stack-2x opacity-100 color-white fa-flip-horizontal"></i>
+                         </div>`);
+          btnView.insertBefore(objDom.find(".icon"));
+          btnView.on(
+            "click",
+            function (e) {
+              WIRE.popupObjectView(obj, null, true);
+            }.bind(this)
+          );
+          cards.push({ id: objId, element: objDom });
+          // }
+        }
+      })(key);
+    }
+
+    var itemsCardsAndFieldsPanel = $(`<div class="panel">
+        <div class="panel-hdr" role="heading" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse" style='background: #f7f7f7;'>
+          <h2 class="ui-sortable-handle">
+            ${Object.keys(fieldValue).length + " " + fieldDisplay}
+          </h2>
+          <div class="panel-toolbar">
+            <button class="btn btn-panel fa fa-chevron-up text-primary custom-chevron-btn"></button>
+          </div>
+        </div>
+        <div class="panel-container show">
+          <div class="panel-content">
+          </div>
+        </div>
+      </div>`)
+      .appendTo(renderOn);
+
+    var panelContentElement = itemsCardsAndFieldsPanel.find('.panel-content');
+    var itemFieldsContainer = $("<div class='pills-container'>");
+
+    panelContentElement.responsiveCarousel({
+      cards: cards,
+      selectedCardClass: 'residential-listing-selected-card',
+      onSelect: function (e, cardId) {
+        itemFieldsContainer.empty();
+        EditableDictField.renderReadOnlyValue(
+          itemFieldsContainer,
+          fieldValue[cardId],
+          fieldSchema
+        );
+      },
+      selectOnNavigate: true,
+    });
+    var panelHeader = itemsCardsAndFieldsPanel.find('.panel-hdr');
+    //panelHeader.click();
+    var carouselInstance = panelContentElement.responsiveCarousel('instance');
+    if (Object.keys(fieldValue).length) {
+      carouselInstance.selectCard(Object.keys(fieldValue)[0]);
+      // IMPORTANT NOTE: Append 'itemFieldsContainer' to 'panelContentElement' "AFTER" rendering the items cards
+      itemFieldsContainer.appendTo(panelContentElement);
+    }
+
+    panelHeader.on('click', function () {
+      //setTimeout(function () { panelContentElement.responsiveCarousel('instance').refreshVisibleItems();}, 500);
+      var chevronBtn = $(this).find('.custom-chevron-btn');
+      if (chevronBtn.hasClass('fa fa-chevron-down')) {
+        chevronBtn.removeClass('fa fa-chevron-down').addClass('fa fa-chevron-up');
+      }
+      else {
+        chevronBtn.removeClass('fa fa-chevron-up').addClass('fa fa-chevron-down');
+      }
+    });
+  }
+}
+
 /** start of Tree Select Field */
 // Field takes keys:
 //   data: Array of dicts with keys ('n', 'd', 'parent')
@@ -34005,6 +34578,11 @@ class ReadonlyButtonField extends BaseEditableField {
     if (typeof (fn) == 'string') {
       fn = eval(fn);
     }
+
+    if (this.field["class"]) {
+      button.addClass(this.field["class"]);
+    }
+
     if (fn) {
       button.click(function () { fn(this) }.bind(this));
     }
@@ -37318,6 +37896,7 @@ _FIELD_CLASS_BY_TYPE = {
   // Field must have key 'listFnName'. Optional field 'max' (if set, at most, this many will be selectable).
   multiobject: EditableMultipleObjectField,
   advancedMultiobject: EditableAdvancedMultipleObjectField,
+  advancedMultiobjectV2: EditableAdvancedMultipleObjectFieldV2,
 
   // Field must have key 'listFnName'.
   multiobjectgroup: EditableMultipleObjectGroupField,
@@ -38976,7 +39555,7 @@ class Lister {
   subscribe(lifetimeDom, fnName, callback) {
     if (lifetimeDom.attr('lister_guid')) {
       // DOM has already subscribed. Ignore.
-    } else {
+    } else if(WIRE.socket) {
       // DOM newly subscribing
       var guid = Guid.generate();
       this._subscriptions[guid] = {dom: lifetimeDom, fnName: fnName, callback: callback};
@@ -42227,7 +42806,7 @@ var objectSize = function (obj) {
     size += 1;
   }
   return size;
-}
+};
 
 class GroupingSearchingDom {
   constructor(renderOn, changeCallback) {
@@ -43307,7 +43886,7 @@ var firstKey = function (dict) {
     return k;
   }
   return null;
-}
+};
 
 // // Return all fields and its related fields info
 // var getItemFieldsDetails = function (wire, itemType) {
@@ -43369,13 +43948,13 @@ var getItemFieldsAndSubFields = function (itemFields, itemType) {
     }
   });
   return newFields;
-}
+};
 
 var getItemIcon = function (itemType) {
   var icon = WIRE.itemManager.schema[itemType] ?
     WIRE.itemManager.schema[itemType].icon : "";
   return icon;
-}
+};
 
 var getMainPhoto = function (item) {
   var mainPhoto;
@@ -43383,7 +43962,7 @@ var getMainPhoto = function (item) {
     mainPhoto = WIRE.d(item.Photos[0]).picture;
   }
   return mainPhoto;
-}
+};
 
 function _test2() {
   var testtt = {
@@ -43888,7 +44467,6 @@ function attachSignin(element, auth2) {
 }
 
 function signOut() {
-  debugger;
   var auth2 = gapi.auth2.getAuthInstance();
   if (auth2){
     auth2.signOut();
@@ -43901,7 +44479,7 @@ var revokeAllScopes = function() {
       auth2.disconnect();
     }
   }
-}
+};
 /*!
  * Select2 4.0.3
  * https://select2.github.io
@@ -55222,7 +55800,6 @@ class Wire {
       }
     }).done(
       function (response) {
-        //
         this.processResponse(response);
         if (!response['error']) {
           if (callback(response)) {
@@ -55237,7 +55814,7 @@ class Wire {
     );
   }
 
-  call(fn_name, data = null, callback = null, failureCallback = null) {
+  call(fnName, data = null, callback = null, failureCallback = null) {
     //debugger;
     callback = callback || function () { };
     // TODO(sami): Use sockets instead of $. but after validating connection.
@@ -55245,7 +55822,7 @@ class Wire {
     $.ajax(this.endpoint, {
       method: "POST",
       data: JSON.stringify({
-        fn: fn_name,
+        fn: fnName,
         data: data
       }),
       processData: false,
@@ -55270,16 +55847,16 @@ class Wire {
 
   /**
    * 
-   * @param {String} fn_name represents the name of server function to be called
+   * @param {String} fnName represents the name of server function to be called
    * @param {Object} data represents the function args
    * @param {Function} callback represents the function that should be executed on the respone
    * @param {int} expiry represents the expiry duration of cache in miliseconds
    */
-  callWithCache(fn_name, data = null, callback = null, expiry = null) {
+  callWithCache(fnName, data = null, callback = null, onFailCallback = null, expiry = null) {
     // default cache time is 30 minutes
     expiry = expiry || 30 * 60 * 1000;
     var cacheKey = JSON.stringify({
-      fn: fn_name,
+      fn: fnName,
       data: data
     });
 
@@ -55289,10 +55866,10 @@ class Wire {
       callback(response);
     } else {
       // if there is no cached data, call the server
-      this.call(fn_name, data, function (response) {
+      this.call(fnName, data, function (response) {
         this.cache.set(cacheKey, response, expiry);
         callback(response);
-      }.bind(this));
+      }.bind(this), onFailCallback);
     }
   }
 
@@ -55313,12 +55890,14 @@ class Wire {
     if (www) {
       pathDict["www"] = www;
     }
+
     var spinner = this.createSpinner();
     $('body').append(spinner);
+
     this.callWithCache(
       "business::get_ajs",
       pathDict,
-      function (response) {
+      function (response) { // On success
         setTimeout(function() {
           var dom = $(response["_html"]);
           var fnName = "f" + this.ngControllerCounter;
@@ -55347,13 +55926,18 @@ class Wire {
                 scope.fnName = fnName;
                 scope.dom = dom;
                 $compile(dom)(scope);
+                // Remove spinner
                 spinner.remove();
               });
             });
 
           AJS_CONTOLLERS = {};
         }.bind(this), 0);
-      }.bind(this)
+      }.bind(this), 
+      function () { // On fail
+        // Remove spinner
+        spinner.remove();
+      }
     );
   }
 
